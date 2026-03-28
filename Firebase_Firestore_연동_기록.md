@@ -1,5 +1,10 @@
 # ChajaDream2 — Firebase(Firestore) DB 연동 기록
 
+## Git 원격
+
+- 저장소: **https://github.com/karin01/ChajaDream2** (`main` 브랜치)
+- `ChajaDream2` 폴더만 **독립 저장소**로 초기화함 (옵시디언 vault 루트 Git과 별개).
+
 ## 현재 상태 (2026-03-29)
 
 - Firebase 콘솔 프로젝트: **chadream2**  
