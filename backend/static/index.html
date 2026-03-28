@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="잏어버린 반려동물을 찾고, 발견한 동물을 알리세요 - 반려동물 차자드림">
+    <title>반려동물 차자드림</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="min-h-screen">
+    <header class="bg-gradient-to-r from-violet-600 to-indigo-600 text-white p-4 shadow-lg rounded-b-xl max-w-5xl mx-auto w-full">
+        <div class="container flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center mx-auto max-w-4xl w-full">
+            <h1 class="text-3xl font-bold text-center sm:text-left">
+                <span class="text-yellow-300">반려동물</span> 차자드림
+            </h1>
+            <div class="flex flex-col items-stretch sm:items-end gap-3">
+                <div class="flex flex-wrap justify-center sm:justify-end gap-2">
+                    <button type="button" id="btnRegisterLost" class="px-4 py-2 rounded-full bg-white text-violet-700 font-bold text-sm shadow-md hover:bg-yellow-100 transition-colors">
+                        실종동물 등록
+                    </button>
+                    <button type="button" id="btnRegisterFound" class="px-4 py-2 rounded-full bg-emerald-400 text-white font-bold text-sm shadow-md hover:bg-emerald-500 transition-colors border border-white/30">
+                        발견 동물 알리기
+                    </button>
+                </div>
+                <nav>
+                    <ul class="flex flex-wrap justify-center sm:justify-end gap-x-4 gap-y-1 text-sm sm:text-base">
+                        <li><a href="lost-pets.html" class="hover:text-yellow-200 transition-colors">실종 동물 찾기</a></li>
+                        <li><a href="found-pets.html" class="hover:text-yellow-200 transition-colors">발견 동물 알리기</a></li>
+                        <li><a href="success-stories.html" class="hover:text-yellow-200 transition-colors">성공 사례</a></li>
+                        <li><a href="community.html" class="hover:text-yellow-200 transition-colors">커뮤니티</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-8 mx-auto max-w-4xl w-full px-4">
+        <!-- 메인: 최신 게시물 (실종+발견 합침) -->
+        <section class="mb-12">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-6">
+                <h2 class="text-3xl font-bold text-gray-800 text-center sm:text-left">최신 게시물</h2>
+                <div class="flex flex-wrap justify-center gap-3 text-sm font-semibold">
+                    <a href="lost-pets.html" class="text-red-600 hover:text-red-800">실종 전체</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="found-pets.html" class="text-green-600 hover:text-green-800">발견 전체</a>
+                </div>
+            </div>
+            <div id="postsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <p id="noPostsMessage" class="text-center text-gray-500 mt-8">아직 등록된 게시물이 없습니다. 첫 게시물을 등록해보세요!</p>
+        </section>
+
+        <!-- 커뮤니티 최신 글 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">커뮤니티 최신 글</h2>
+            <div id="communityPreview" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            <p id="noCommunityPreviewMsg" class="text-center text-gray-500 mt-4 hidden">아직 커뮤니티 글이 없습니다.</p>
+            <div class="text-center mt-4">
+                <a href="community.html" class="btn-secondary">커뮤니티 전체 보기 &rarr;</a>
+            </div>
+        </section>
+
+        <!-- 감동적인 성공 사례 -->
+        <section class="bg-blue-50 p-6 md:p-8 rounded-xl shadow-inner mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">감동적인 성공 사례</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card p-4 flex flex-col md:flex-row items-center md:space-x-4">
+                    <img src="https://placehold.co/100x100/A7D9FF/000000?text=Success" alt="" class="rounded-full w-24 h-24 object-cover mb-4 md:mb-0 flex-shrink-0">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">"포기하지 않았어요!" - 잃어버린 강아지 '복이'와 재회</h3>
+                        <p class="text-gray-600 text-sm mt-2">
+                            한 달 만에 우리 복이를 다시 만나게 되었어요! 반려동물 차자드림 덕분입니다. 정말 감사합니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="card p-4 flex flex-col md:flex-row items-center md:space-x-4">
+                    <img src="https://placehold.co/100x100/B3F0D9/000000?text=NewFamily" alt="" class="rounded-full w-24 h-24 object-cover mb-4 md:mb-0 flex-shrink-0">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">"새로운 가족이 생겼어요!" - 유기묘 '나비'의 행복한 입양</h3>
+                        <p class="text-gray-600 text-sm mt-2">
+                            나비에게 따뜻한 새 가족을 찾아주었습니다. 이 플랫폼이 유기동물에게 큰 희망이 될 거예요.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="success-stories.html" class="text-violet-700 hover:text-violet-900 font-semibold transition-colors">
+                    더 많은 성공 사례 보기 &rarr;
+                </a>
+            </div>
+        </section>
+
+        <!-- 팁 -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">반려동물 보호 팁 & 가이드</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card p-5">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">실종 예방 수칙</h3>
+                    <ul class="list-disc list-inside text-gray-600 text-sm">
+                        <li>동물 등록은 필수!</li>
+                        <li>외출 시 목줄, 인식표 확인</li>
+                        <li>현관문, 창문 단속 철저</li>
+                    </ul>
+                </div>
+                <div class="card p-5">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">유기동물 발견 시</h3>
+                    <ul class="list-disc list-inside text-gray-600 text-sm">
+                        <li>안전 확보 후 접근</li>
+                        <li>동물보호센터 신고</li>
+                        <li>사진 촬영 및 정보 기록</li>
+                    </ul>
+                </div>
+                <div class="card p-5">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">입양 절차 안내</h3>
+                    <ul class="list-disc list-inside text-gray-600 text-sm">
+                        <li>입양 전 충분한 고민</li>
+                        <li>책임감 있는 보호자의 자세</li>
+                        <li>입양 후 적응 기간 필요</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 텔레그램 연동 안내 -->
+        <section class="mb-12" aria-labelledby="telegram-info-heading">
+            <div class="telegram-service-note max-w-3xl mx-auto">
+                <h2 id="telegram-info-heading" class="telegram-service-note__title">텔레그램으로도 연결할 수 있어요</h2>
+                <p>
+                    반려동물 차자드림은 <strong>텔레그램 봇과 연동</strong>할 수 있습니다. 운영자가 봇·채널을 설정해 두면,
+                    <strong>실종·발견</strong> 게시판에 새 글이 올라올 때 텔레그램으로 알림을 보낼 수 있고,
+                    <strong>커뮤니티</strong>에서도 글에 <strong>「실종」「발견」</strong> 등 관련 내용이 담겨 있으면 알림이 갈 수 있습니다.
+                    지역별 그룹이나 개인 알림은 봇 명령(예: 구독)으로 확장할 수 있습니다.
+                </p>
+                <p>
+                    공식 봇에서 안내를 받으려면
+                    <a href="https://t.me/Chajadream_bot" target="_blank" rel="noopener noreferrer">Telegram에서 Chajadream_bot 열기</a>
+                    를 눌러 주세요. (알림 수신은 서버·봇 설정이 되어 있을 때 동작합니다.)
+                </p>
+            </div>
+        </section>
+
+        <!-- 카드 클릭 시 상세 (로컬 메모리용 — 메인 피드는 API 카드에서 페이지 이동) -->
+        <div id="postModal" class="modal" style="display:none;">
+            <div class="modal-content modal-content--detail">
+                <div class="modal-content--detail__header">
+                    <span id="closeModalBtn" class="close">&times;</span>
+                </div>
+                <div class="modal-content--detail__scroll">
+                    <img id="modalPhoto" src="" alt="동물 사진" class="photo-preview" style="max-width:100%;margin-bottom:1rem;">
+                    <div id="modalInfo"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 게시물 등록 모달 (실종/발견) -->
+    <div id="registerModal" class="modal modal--stack" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="form-title">
+        <div class="modal-content modal-content--register" id="registerModalPanel">
+            <button type="button" id="closeRegisterModal" class="close" aria-label="닫기">&times;</button>
+            <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-6 text-center" id="form-title">게시물 등록</h3>
+            <form id="petForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                <div class="md:col-span-2">
+                    <label for="postType" class="block text-sm font-medium text-gray-700 mb-1">게시물 종류</label>
+                    <select id="postType" class="form-input" required>
+                        <option value="">선택하세요</option>
+                        <option value="lost">실종 동물 등록</option>
+                        <option value="found">발견 동물 알리기</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="petType" class="block text-sm font-medium text-gray-700 mb-1">동물 종류</label>
+                    <select id="petType" class="form-input" required>
+                        <option value="">선택하세요</option>
+                        <option value="dog">강아지</option>
+                        <option value="cat">고양이</option>
+                        <option value="etc">기타</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="breed" class="block text-sm font-medium text-gray-700 mb-1">품종</label>
+                    <input type="text" id="breed" class="form-input" placeholder="예: 시츄, 코리안 숏헤어" required>
+                </div>
+                <div>
+                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">성별</label>
+                    <select id="gender" class="form-input" required>
+                        <option value="">선택하세요</option>
+                        <option value="male">수컷</option>
+                        <option value="female">암컷</option>
+                        <option value="unknown">미상</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="petName" class="block text-sm font-medium text-gray-700 mb-1">이름 <span class="text-gray-500 font-normal text-xs">(알 때만, 선택)</span></label>
+                    <input type="text" id="petName" class="form-input" placeholder="실종·발견 모두: 목걸이 등으로 알려진 이름" autocomplete="off">
+                </div>
+                <div>
+                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">나이 (추정)</label>
+                    <input type="text" id="age" class="form-input" placeholder="예: 3살, 성견">
+                </div>
+                <div class="md:col-span-2">
+                    <label for="color" class="block text-sm font-medium text-gray-700 mb-1">털색 및 특징</label>
+                    <input type="text" id="color" class="form-input" placeholder="예: 흰색, 검은색 무늬, 귀 한쪽 접힘" required>
+                </div>
+                <div class="md:col-span-2">
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">기타 특이사항 (중성화 여부, 칩 유무, 행동 등)</label>
+                    <textarea id="description" class="form-input h-24 resize-y" placeholder="상세한 특징을 적어주세요."></textarea>
+                </div>
+                <div>
+                    <label for="date" class="block text-sm font-medium text-gray-700 mb-1">날짜 (잃어버린/발견한)</label>
+                    <input type="date" id="date" class="form-input" required>
+                </div>
+                <div>
+                    <label for="time" class="block text-sm font-medium text-gray-700 mb-1">시간 (잃어버린/발견한)</label>
+                    <input type="time" id="time" class="form-input">
+                </div>
+                <div class="md:col-span-2">
+                    <label for="address" class="block text-sm font-medium text-gray-700 mb-1">주소 (잃어버린/발견한)</label>
+                    <input type="text" id="address" class="form-input" placeholder="예: 서울특별시 강남구 역삼동" required>
+                    <p class="text-xs text-gray-500 mt-1"><span class="text-blue-500">지도는 추후 연동 예정입니다.</span></p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="form-contact-notice" role="note"><strong>연락처 안내:</strong> 개인 휴대폰보다 <strong>동물병원·애견센터(미용·호텔 등)·보호시설</strong> 대표번호를 남겨 주세요. 개인정보 보호에 도움이 됩니다.</p>
+                </div>
+                <div>
+                    <label for="contactName" class="block text-sm font-medium text-gray-700 mb-1">연락 가능한 이름</label>
+                    <input type="text" id="contactName" class="form-input" placeholder="예: ○○동물병원, ○○보호센터" required>
+                </div>
+                <div>
+                    <label for="contactPhone" class="block text-sm font-medium text-gray-700 mb-1">연락처</label>
+                    <input type="tel" id="contactPhone" class="form-input" placeholder="예: 02-123-4567 (시설 대표번호)" required>
+                </div>
+                <div class="md:col-span-2">
+                    <label for="photo" class="block text-sm font-medium text-gray-700 mb-1">반려동물 사진 업로드 (최대 1장)</label>
+                    <input type="file" id="photo" class="form-input" accept="image/*">
+                    <p class="text-xs text-gray-500 mt-1">JPG, PNG 등 이미지를 선택한 뒤 등록하면 서버에 저장됩니다.</p>
+                </div>
+                <div>
+                    <label for="author" class="block text-sm font-medium text-gray-700 mb-1">작성자 닉네임</label>
+                    <input type="text" id="author" class="form-input" placeholder="예: 홍길동" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
+                    <input type="password" id="password" class="form-input" placeholder="글 수정·삭제 시 사용" required>
+                    <p class="text-xs text-gray-500 mt-1">나중에 글을 고치거나 지울 때 필요합니다.</p>
+                </div>
+                <div class="md:col-span-2 text-center pt-2">
+                    <button type="submit" class="btn-primary mt-2 hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                        게시물 등록하기
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white p-6 text-center rounded-t-xl max-w-5xl mx-auto w-full">
+        <div class="container mx-auto max-w-4xl w-full">
+            <p>&copy; 2026 반려동물 차자드림. All rights reserved.</p>
+            <p class="text-sm mt-2 text-gray-300">
+                텔레그램 연동·알림:
+                <a href="https://t.me/Chajadream_bot" class="text-sky-300 hover:text-white underline font-medium" target="_blank" rel="noopener noreferrer">@Chajadream_bot</a>
+            </p>
+            <p class="text-sm mt-2">
+                <a href="#" class="hover:text-gray-300">개인정보처리방침</a> |
+                <a href="#" class="hover:text-gray-300">이용약관</a> |
+                <a href="#" class="hover:text-gray-300">문의하기</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 운영진 전용: 우하단 숨은 버튼 → 모달(커뮤니티와 동일 sessionStorage) -->
+    <div id="staffLoginModal" class="modal" style="display:none;" aria-hidden="true">
+        <div class="modal-content" style="max-width:420px;">
+            <span id="closeStaffLoginModal" class="close" role="button" tabindex="0">&times;</span>
+            <h3 class="text-xl font-bold mb-2">운영진 전용</h3>
+            <div id="staffActiveSection" class="hidden">
+                <p class="text-sm text-emerald-800 mb-4 leading-relaxed">
+                    운영진 모드가 켜져 있습니다. 실종·발견·커뮤니티·성공사례 글의 삭제·수정 시 원 비밀번호 없이 처리할 수 있습니다.
+                </p>
+                <button type="button" id="staffLogoutBtn" class="btn-danger w-full">운영진 모드 끄기</button>
+            </div>
+            <div id="staffLoginSection">
+                <p class="text-sm text-gray-600 mb-3 leading-relaxed">
+                    사이트 <strong>운영자</strong>만 사용합니다. 배포 서버의 <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded">backend/.env</code> 파일에
+                    <strong>STAFF_MODE_SECRET</strong> 을 넣어 두었다면, 그 값과 동일한 비밀번호를 입력하세요. 설정이 없으면 이 로그인은 성공하지 않습니다.
+                </p>
+                <form id="staffLoginForm">
+                    <input type="password" id="staffLoginInput" class="form-input" placeholder="운영진 비밀번호" autocomplete="off">
+                    <button type="submit" class="btn-primary w-full mt-4">확인</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <button type="button" id="staffHiddenTrigger" class="staff-hidden-trigger" tabindex="-1" aria-hidden="true" title=""></button>
+
+    <script src="/static/js/staff-mode.js"></script>
+    <script src="/static/js/script.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyAaEH5pqUgQMp-CtIFCBsAyncsy6LPIILQ",
+        authDomain: "chadream2.firebaseapp.com",
+        projectId: "chadream2",
+        storageBucket: "chadream2.firebasestorage.app",
+        messagingSenderId: "669170323240",
+        appId: "1:669170323240:web:f1ccea30beca3bc4744a1d",
+        measurementId: "G-W5LE32L57M"
+      };
+      window.firebaseApp = initializeApp(firebaseConfig);
+      window.db = getFirestore(window.firebaseApp);
+    </script>
+</body>
+</html>

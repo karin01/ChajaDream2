@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="반려동물을 새 집으로 보낸 성공 사례들을 공유해주세요 - 차자드림">
+    <title>성공 사례 - 반려동물 차자드림</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen">
+    <!-- 헤더 -->
+    <header class="page-header" style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)">
+        <div class="page-header__inner">
+            <h1 style="margin:0;font-size:1rem;">
+                <a href="/static/index.html" class="page-header__back">← 반려동물 차자드림</a>
+            </h1>
+            <span class="page-header__title">
+                <span class="page-header__title-emoji">🌟</span>
+                성공 사례
+            </span>
+        </div>
+    </header>
+    <!-- 메인 -->
+    <main class="container py-8 mx-auto max-w-4xl w-full px-4">
+        <div class="telegram-service-note" role="note">
+            <p class="telegram-service-note__title">텔레그램 연동 안내</p>
+            <p>실종·발견·커뮤니티 알림은 텔레그램 봇과 연동할 수 있습니다. 공식 봇에서 안내를 확인해 보세요.</p>
+            <p><a href="https://t.me/Chajadream_bot" target="_blank" rel="noopener noreferrer">Telegram — Chajadream_bot 열기</a></p>
+        </div>
+        <div class="section-header">
+            <h2 class="section-title">✨ <span class="section-title-accent">성공 사례</span> 게시판</h2>
+            <button id="writeBtn" class="btn-primary">+ 등록하기</button>
+        </div>
+        <!-- 게시글 목록 -->
+        <div id="successStoriesList" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        <div id="noSuccessStoriesMsg" class="empty-message hidden">
+            <span class="empty-message__icon">🎈</span>
+            <p class="empty-message__text">아직 등록된 성공 사례가 없습니다.<br>쮉은 이야기를 일려주세요!</p>
+        </div>
+    </main>
+    <!-- 글 작성 모달 -->
+    <div id="writeModal" class="modal" style="display:none;">
+        <div class="modal-content" style="max-width:500px;">
+            <span id="closeWriteModal" class="close">&times;</span>
+            <h3 class="text-xl font-bold mb-4">성공 사례 등록</h3>
+            <form id="writeForm">
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">제목</label>
+                    <input type="text" id="title" class="form-input" placeholder="예: 우리 강아지와 재회한 감동적인 이야기" required>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">동물 종류</label>
+                    <select id="petType" class="form-input">
+                        <option value="">선택하세요 (선택사항)</option>
+                        <option value="dog">강아지</option>
+                        <option value="cat">고양이</option>
+                        <option value="etc">기타</option>
+                    </select>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">성공 사례 내용</label>
+                    <textarea id="content" class="form-input h-32 resize-y" placeholder="실종 동물을 찾은 과정이나 새로운 가족을 찾은 이야기를 자세히 적어주세요." required></textarea>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">이전 사진 (실종/발견 당시)</label>
+                    <input type="file" id="beforePhoto" class="form-input" accept="image/*">
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">이후 사진 (재회/입양 후)</label>
+                    <input type="file" id="afterPhoto" class="form-input" accept="image/*">
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">작성자</label>
+                    <input type="text" id="author" class="form-input" placeholder="작성자" required>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
+                    <input type="password" id="password" class="form-input" placeholder="비밀번호" required>
+                </div>
+                <button type="submit" class="btn-primary w-full mt-4">등록</button>
+            </form>
+        </div>
+    </div>
+    <!-- 글 수정 모달 -->
+    <div id="editModal" class="modal" style="display:none;">
+        <div class="modal-content" style="max-width:500px;">
+            <span id="closeEditModal" class="close">&times;</span>
+            <h3 class="text-xl font-bold mb-4">성공 사례 수정</h3>
+            <form id="editForm">
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">제목</label>
+                    <input type="text" id="editTitle" class="form-input" placeholder="예: 우리 강아지와 재회한 감동적인 이야기" required>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">동물 종류</label>
+                    <select id="editPetType" class="form-input">
+                        <option value="">선택하세요 (선택사항)</option>
+                        <option value="dog">강아지</option>
+                        <option value="cat">고양이</option>
+                        <option value="etc">기타</option>
+                    </select>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">성공 사례 내용</label>
+                    <textarea id="editContent" class="form-input h-32 resize-y" placeholder="실종 동물을 찾은 과정이나 새로운 가족을 찾은 이야기를 자세히 적어주세요." required></textarea>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">이전 사진 (실종/발견 당시)</label>
+                    <input type="file" id="editBeforePhoto" class="form-input" accept="image/*">
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">이후 사진 (재회/입양 후)</label>
+                    <input type="file" id="editAfterPhoto" class="form-input" accept="image/*">
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">작성자</label>
+                    <input type="text" id="editAuthor" class="form-input" placeholder="작성자" required>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">비밀번호</label>
+                    <input type="password" id="editPassword" class="form-input" placeholder="비밀번호" required>
+                </div>
+                <button type="submit" class="btn-primary w-full mt-4">수정</button>
+            </form>
+        </div>
+    </div>
+    <!-- 글 상세 모달 -->
+    <div id="detailModal" class="modal" style="display:none;">
+        <div class="modal-content modal-content--detail">
+            <div class="modal-content--detail__header">
+                <span id="closeDetailModal" class="close">&times;</span>
+            </div>
+            <div class="modal-content--detail__scroll">
+                <div id="detailContent"></div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js/success-stories.js"></script>
+    <script>
+        console.log('success-stories.html loaded');
+    </script>
+</body>
+</html> 

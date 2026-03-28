@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="반려동물 실종, 발견, 임보 커뮤니티 - 차자드림">
+    <title>커뮤니티 게시판 - 반려동물 차자드림</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen">
+    <!-- 헤더 -->
+    <header class="page-header" style="background:linear-gradient(135deg,#f7971e 0%,#ffd200 100%)">
+        <div class="page-header__inner">
+            <h1 style="margin:0;font-size:1rem;">
+                <a href="/static/index.html" class="page-header__back" style="color:rgba(80,50,0,0.75)">← 반려동물 차자드림</a>
+            </h1>
+            <span class="page-header__title" style="color:#3d2c00;">
+                <span class="page-header__title-emoji">🗨️</span>
+                커뮤니티
+            </span>
+        </div>
+    </header>
+    <!-- 메인 -->
+    <main class="container py-8 mx-auto max-w-4xl w-full px-4">
+        <div class="telegram-service-note" role="note">
+            <p class="telegram-service-note__title">텔레그램 연동 안내</p>
+            <p>설정이 되어 있으면 커뮤니티에서 <strong>「실종」「발견」</strong> 등 관련 내용이 포함된 글이 올라올 때 텔레그램으로 알림이 갈 수 있습니다.</p>
+            <p><a href="https://t.me/Chajadream_bot" target="_blank" rel="noopener noreferrer">Telegram — Chajadream_bot 열기</a></p>
+        </div>
+        <div class="section-header">
+            <h2 class="section-title">🗨️ <span class="section-title-accent">커뮤니티</span></h2>
+            <button id="writeBtn" class="btn-primary">+ 글쓰기</button>
+        </div>
+        <!-- 게시글 목록 -->
+        <div id="communityList" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        <div id="noCommunityMsg" class="empty-message hidden">
+            <span class="empty-message__icon">🌼</span>
+            <p class="empty-message__text">아직 작성된 글이 없습니다.<br>첫 글을 작성해보세요!</p>
+        </div>
+    </main>
+    <!-- 글 작성 모달 -->
+    <div id="writeModal" class="modal" style="display:none;">
+        <div class="modal-content" style="max-width:420px;">
+            <span id="closeWriteModal" class="close">&times;</span>
+            <h3 class="text-xl font-bold mb-4">글 작성</h3>
+            <form id="writeForm">
+                <input type="text" id="title" class="form-input" placeholder="제목" required>
+                <textarea id="content" class="form-input h-28 resize-y" placeholder="내용" required></textarea>
+                <input type="text" id="author" class="form-input" placeholder="작성자" required>
+                <input type="password" id="password" class="form-input" placeholder="비밀번호" required>
+                <input type="file" id="photo" class="form-input" accept="image/*">
+                <input type="text" id="tags" class="form-input" placeholder="#태그 (예: #강아지 #실종 #발견)">
+                <button type="submit" class="btn-primary w-full mt-4">등록</button>
+            </form>
+        </div>
+    </div>
+    <!-- 글 수정 모달 -->
+    <div id="editModal" class="modal" style="display:none;">
+        <div class="modal-content" style="max-width:420px;">
+            <span id="closeEditModal" class="close">&times;</span>
+            <h3 class="text-xl font-bold mb-4">글 수정</h3>
+            <form id="editForm">
+                <input type="text" id="editTitle" class="form-input" placeholder="제목" required>
+                <textarea id="editContent" class="form-input h-28 resize-y" placeholder="내용" required></textarea>
+                <input type="text" id="editAuthor" class="form-input" placeholder="작성자" required>
+                <input type="password" id="editPassword" class="form-input" placeholder="비밀번호" required>
+                <input type="file" id="editPhoto" class="form-input" accept="image/*">
+                <input type="text" id="editTags" class="form-input" placeholder="#태그 (예: #강아지 #실종)">
+                <button type="submit" class="btn-primary w-full mt-4">수정</button>
+            </form>
+        </div>
+    </div>
+    <!-- 글 상세 모달 -->
+    <div id="detailModal" class="modal" style="display:none;">
+        <div class="modal-content modal-content--detail modal-content--detail--narrow">
+            <div class="modal-content--detail__header">
+                <span id="closeDetailModal" class="close">&times;</span>
+            </div>
+            <div class="modal-content--detail__scroll">
+                <div id="detailContent"></div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js/community.js"></script>
+    <script>
+        console.log('community.html loaded');
+    </script>
+</body>
+</html> 

@@ -1,0 +1,22 @@
+# 비밀·로컬 설정
+.env
+.env.*
+!.env.example
+backend/.env
+backend/telegram_regions.json
+
+# SQLite 로컬 DB
+*.db
+*.db-journal
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 기타
+node_modules/
+.DS_Store
+*.log
+Thumbs.db

@@ -1,0 +1,15 @@
+{
+  "routes": [
+    {
+      "keywords": ["강남구", "역삼동", "삼성동"],
+      "chat_id": "-100xxxxxxxxxx",
+      "label": "서울 강남권 예시"
+    },
+    {
+      "keywords": ["수원시", "영통구"],
+      "chat_id": "-100yyyyyyyyyy",
+      "label": "수원 예시"
+    }
+  ],
+  "_comment": "이 파일을 telegram_regions.json 으로 복사한 뒤 chat_id 를 실제 그룹/채널 ID로 바꾸세요. keywords 에 주소에 포함되면 해당 chat_id 로 알림이 갑니다."
+}
